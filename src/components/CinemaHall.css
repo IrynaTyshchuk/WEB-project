@@ -106,3 +106,47 @@ body {
 .selected-seats-info h4 {
   margin: 0 0 10px 0;
 }
+.booking-button {
+  margin-top: 20px;
+  padding: 12px 24px;
+  background-color: #ffce0c;
+  color: white;
+  border: none;
+  border-radius: 12px;
+  font-weight: bold;
+  font-size: 16px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.booking-button:hover:not(:disabled) {
+  background-color: #e6b800;
+}
+
+.booking-button:disabled {
+  background-color: #ccc;
+  cursor: not-allowed;
+}
+.back-button {
+  margin-top: 12px;
+  padding: 10px 20px;
+  background-color: #009dff;
+  color: white;
+  border: none;
+  border-radius: 12px;
+  font-weight: bold;
+  font-size: 16px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.back-button:hover {
+  background-color: #007acc;
+}
+.seat.booked {
+  background-color: #999999; 
+  cursor: not-allowed;
+  color: #ddd;
+  pointer-events: none; 
+}
+
