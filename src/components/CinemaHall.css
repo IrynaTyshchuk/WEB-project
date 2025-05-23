@@ -1,0 +1,37 @@
+.cinema-grid {
+  display: grid;
+  grid-template-columns: repeat(10, 1fr);
+  gap: 12px;
+  margin-top: 20px;
+  padding: 20px;
+  background-color: #fff3b0; /* фон схожий на інші елементи сайту */
+  border-radius: 20px;
+  max-width: 700px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.seat {
+  background-color: #4caf50; /* зелений — доступне */
+  color: white;
+  font-weight: bold;
+  padding: 10px;
+  border-radius: 12px;
+  text-align: center;
+  cursor: pointer;
+  transition: background-color 0.3s ease, transform 0.2s ease;
+  user-select: none;
+}
+
+.seat:hover {
+  background-color: #66bb6a; /* світліший зелений при наведенні */
+  transform: scale(1.05);
+}
+
+.seat.selected {
+  background-color: #2196f3; /* синій — вибране */
+}
+
+.seat:active {
+  transform: scale(0.95);
+}
