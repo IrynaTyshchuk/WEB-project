@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import moviesData from '../data/movies';
-
 function Home() {
   const [searchTerm, setSearchTerm] = useState('');
   const [activeGenre, setActiveGenre] = useState(null);
@@ -131,5 +130,4 @@ function Home() {
     </div>
   );
 }
-
 export default Home;

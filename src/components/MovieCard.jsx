@@ -1,19 +1,17 @@
+// src/components/MovieCard.jsx
 import React from 'react';
+import { useNavigate } from 'react-router-dom';
 
-function MovieCard({ title, description, genre, time, image, onClick }) {
+function MovieCard({ movie }) {
+  const navigate = useNavigate();
+
   return (
-    <div
-      className="movie-card"
-      onClick={onClick}
-      tabIndex={0}
-      onKeyDown={(e) => { if (e.key === 'Enter') onClick(); }}
-      role="button"
-      aria-label={`Відкрити вибір сеансу для фільму ${title}`}
-    >
-      <img src={image} alt={title} />
-      <h3>{title}</h3>
-      <p className="genre-time">{genre} | {time}</p>
-      <p className="description">{description}</p>
+    <div className="movie-card">
+      <img src={movie.image} alt={movie.title} />
+      <h3>{movie.title}</h3>
+      <p>{movie.genre} | {movie.time}</p>
+      <p>{movie.description}</p>
+      <button onClick={() => navigate(`/booking/${movie.id}`)}>Забронювати</button>
     </div>
   );
 }
