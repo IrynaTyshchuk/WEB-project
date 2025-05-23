@@ -1,19 +1,38 @@
 import React, { useState } from 'react';
-import MovieList from './components/MovieList';
 import moviesData from './data/movies';
 import './index.css';
 
 function App() {
   const [searchTerm, setSearchTerm] = useState('');
   const [activeGenre, setActiveGenre] = useState(null);
+  const [selectedMovie, setSelectedMovie] = useState(null);
+  const [selectedDate, setSelectedDate] = useState(null);
 
   const genres = Array.from(new Set(moviesData.map(movie => movie.genre)));
 
-  // Фільтрація фільмів за пошуком і жанром
   const filteredMovies = moviesData.filter(movie =>
     movie.title.toLowerCase().includes(searchTerm.toLowerCase()) &&
     (!activeGenre || movie.genre === activeGenre)
   );
+
+  const openModal = (movie) => {
+    setSelectedMovie(movie);
+    setSelectedDate(null);
+  };
+
+  const closeModal = () => {
+    setSelectedMovie(null);
+    setSelectedDate(null);
+  };
+
+  const confirmDate = () => {
+    if (selectedDate) {
+      alert(`Ви обрали сеанс на ${selectedDate} для фільму "${selectedMovie.title}"`);
+      closeModal();
+    } else {
+      alert("Оберіть дату сеансу!");
+    }
+  };
 
   return (
     <div className="app">
@@ -59,7 +78,48 @@ function App() {
         <div className="left">м. Львів</div>
       </header>
 
-      <MovieList movies={filteredMovies} />
+      <div className="movie-list">
+        {filteredMovies.map((movie, index) => (
+          <div
+            key={index}
+            className="movie-card"
+            onClick={() => openModal(movie)}
+            tabIndex={0}
+            onKeyDown={(e) => { if (e.key === 'Enter') openModal(movie); }}
+            role="button"
+            aria-label={`Відкрити вибір сеансу для фільму ${movie.title}`}
+          >
+            <img src={movie.image} alt={movie.title} />
+            <h3>{movie.title}</h3>
+            <p className="genre-time">{movie.genre} | {movie.time}</p>
+            <p className="description">{movie.description}</p>
+          </div>
+        ))}
+      </div>
+
+      {selectedMovie && (
+        <div className="modal-backdrop" onClick={closeModal} role="dialog" aria-modal="true">
+          <div className="modal" onClick={e => e.stopPropagation()}>
+            <h2>{selectedMovie.title}</h2>
+            <p>Оберіть дату сеансу:</p>
+            <div className="date-list">
+              {selectedMovie.dates.map(date => (
+                <button
+                  key={date}
+                  className={`date-btn ${selectedDate === date ? 'selected' : ''}`}
+                  onClick={() => setSelectedDate(date)}
+                >
+                  {date}
+                </button>
+              ))}
+            </div>
+            <div className="modal-actions">
+              <button onClick={confirmDate} className="confirm-btn">Підтвердити</button>
+              <button onClick={closeModal} className="cancel-btn">Скасувати</button>
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   );
 }
